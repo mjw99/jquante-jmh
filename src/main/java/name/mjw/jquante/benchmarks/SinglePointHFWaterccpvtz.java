@@ -89,7 +89,7 @@ public class SinglePointHFWaterccpvtz {
                 water.addAtom(H2);
 
                 try {
-                        bf = new BasisFunctions(water, "ccpvtz");
+                        bf = new BasisFunctions(water, "cc-pvtz");
 
                 } catch (Exception e) {
 

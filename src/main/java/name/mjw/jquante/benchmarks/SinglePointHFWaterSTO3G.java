@@ -89,7 +89,7 @@ public class SinglePointHFWaterSTO3G {
                 water.addAtom(H2);
 
                 try {
-                        bf = new BasisFunctions(water, "sto3g");
+                        bf = new BasisFunctions(water, "sto-3g");
 
                 } catch (Exception e) {
 

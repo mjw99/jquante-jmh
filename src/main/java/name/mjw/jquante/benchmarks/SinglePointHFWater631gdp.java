@@ -89,7 +89,7 @@ public class SinglePointHFWater631gdp {
                 water.addAtom(H2);
 
                 try {
-                        bf = new BasisFunctions(water, "631gdp");
+                        bf = new BasisFunctions(water, "6-31gss");
 
                 } catch (Exception e) {
 
