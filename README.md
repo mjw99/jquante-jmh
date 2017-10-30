@@ -12,6 +12,14 @@ cd jquante-jmh
 mvn clean package ; java -jar ./target/benchmarks.jar
 ```
 
+This will produce output similar to the following:
+```
+Benchmark                             Mode  Cnt   Score   Error  Units
+SinglePointHFWater631gdp.doBenchmark  avgt   10   0.462 ± 0.070   s/op
+SinglePointHFWaterSTO3G.doBenchmark   avgt   10   0.030 ± 0.002   s/op
+SinglePointHFWaterccpvtz.doBenchmark  avgt   10  17.694 ± 0.330   s/op
+
+```
 
 # Advanced #
 
@@ -52,9 +60,7 @@ This profiles using [kernel based](https://en.wikipedia.org/wiki/Perf_(Linux)) c
 
 1) Install userspace perf tools and kernel modules
 ```
-sudo apt-get install linux-tools-common
-sudo apt-get install linux-tools-generic
-sudo apt-get install linux-tools-4.4.0-96-generic
+sudo apt-get install linux-tools-common linux-tools-generic linux-tools-4.4.0-96-generic
 ```
 
 2) Note "-XX:CompileCommand=print" will not print assembly without the hsdis-amd64.so library. To solve this under Ubuntu 16.04:
@@ -63,8 +69,7 @@ sudo apt-get install libhsdis0-fcml
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH=:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64
 ```
 
-3)
-Basic stack perfasm profile:
+3) Perform perfasm profile:
 ```
 java -jar ./target/benchmarks.jar -prof perfasm:intelSyntax=true;tooBigThreshold=1500;top=3
 ```
