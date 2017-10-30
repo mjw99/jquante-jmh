@@ -21,24 +21,9 @@ Basic stack based profile:
 ```
 java -jar ./target/benchmarks.jar -prof stack
 ```
-
-## Profiling with prefasm ##
-This profiles using kernel based counterss.
-
-Note "-XX:CompileCommand=print" will not print assembly without hsdis-amd64.so. To solve this under Ubuntu 16.04:
-```
-sudo apt-get install libhsdis0-fcml
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH=:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64
-java -jar ./target/benchmarks.jar
-```
-
-Basic stack based profile:
-```
-java -jar ./target/benchmarks.jar -prof perfasm
-```
 This will produce output similar to the following:
 ```
-Secondary result "name.mjw.jquante.benchmarks.SinglePointHFWaterccpvtz.doBenchmark:Â·stack":
+Secondary result "name.mjw.jquante.benchmarks.SinglePointHFWaterccpvtz.doBenchmark:·stack":
 Stack profiler:
 
 ....[Thread state distributions]....................................................................
@@ -59,5 +44,29 @@ Stack profiler:
   0.0%   0.0% name.mjw.jquante.math.qm.integral.HuzinagaTwoElectronTerm.functionB
   0.2%   0.3% <other>
 
+```
+
+
+## Profiling with perfasm ##
+This profiles using [kernel based](https://en.wikipedia.org/wiki/Perf_(Linux) counters.
+
+1) Install userspace perf tools and kernel modules
+```
+sudo apt-get install linux-tools-common
+sudo apt-get install linux-tools-generic
+sudo apt-get install linux-tools-4.4.0-96-generic
+```
+
+2) Note "-XX:CompileCommand=print" will not print assembly without hsdis-amd64.so. To solve this under Ubuntu 16.04:
+```
+sudo apt-get install libhsdis0-fcml
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH=:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64
+java -jar ./target/benchmarks.jar
+```
+
+3)
+Basic stack perfasm profile:
+```
+java -jar ./target/benchmarks.jar -prof perfasm
 ```
 
