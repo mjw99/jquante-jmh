@@ -48,7 +48,7 @@ Stack profiler:
 
 
 ## Profiling with perfasm (Ubuntu 16.04)##
-This profiles using [kernel based](https://en.wikipedia.org/wiki/Perf_(Linux) counters.
+This profiles using [kernel based](https://en.wikipedia.org/wiki/Perf_(Linux)) counters.
 
 1) Install userspace perf tools and kernel modules
 ```
