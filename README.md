@@ -66,6 +66,46 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH=:/usr/lib/jvm/java-8-openjdk-amd64/jre/l
 3)
 Basic stack perfasm profile:
 ```
-java -jar ./target/benchmarks.jar -prof perfasm
+java -jar ./target/benchmarks.jar -prof perfasm:intelSyntax=true;tooBigThreshold=1500;top=3
+```
+This will generate much more detail, including assembly level code of the hot regions:
+
+```
+Hottest code regions (>10.00% "cycles" events):
+
+....[Hottest Region 1]..............................................................................
+perf-8311.map, [unknown] (772 bytes) 
+
+ <no assembly is recorded, native region>
+....................................................................................................
+ 35.69%   45.02%  <total for region 1>
+
+....[Hottest Region 2]..............................................................................
+c2, level 4, name.mjw.jquante.math.qm.integral.IntegralsUtil::gammaIncomplete, version 1099 (1359 bytes) 
+
+                    0x00007fadd1696f14 (offset:  148): 0xf4f4f4f4
+                    0x00007fadd1696f18 (offset:  152): 0xf4f4f4f4   0xf4f4f4f4f4f4f4f4
+                    0x00007fadd1696f1c (offset:  156): 0xf4f4f4f4
+                  RIP: 0x7fadd1696f20 Code size: 0x00000898
+                  [Entry Point]
+                  [Verified Entry Point]
+                    # {method} {0x00007fad71608f00} &apos;gammaIncomplete&apos; &apos;(DD)D&apos; in &apos;name/mjw/jquante/math/qm/integral/IntegralsUtil&apos;
+                    # parm0:    xmm0:xmm0   = double
+                    # parm1:    xmm1:xmm1   = double
+                    #           [sp+0x70]  (sp of caller)
+  0.00%    0.01%    0x00007fadd1696f20: mov     dword ptr [rsp+0fffffffffffec000h],eax
+                                                                  ;   {no_reloc}
+  0.06%    0.02%    0x00007fadd1696f27: push    rbp
+  0.00%    0.01%    0x00007fadd1696f28: sub     rsp,60h           ;*synchronization entry
+                                                                  ; - name.mjw.jquante.math.qm.integral.IntegralsUtil::gammaIncomplete@-1 (line 119)
+  0.05%    0.02%    0x00007fadd1696f2c: vmovsd  qword ptr [rsp],xmm1
+  0.01%    0.01%    0x00007fadd1696f31: vmovsd  qword ptr [rsp+28h],xmm0
+  0.00%    0.01%    0x00007fadd1696f37: mov     r13d,1h
+  0.00%    0.00%    0x00007fadd1696f3d: vaddsd  xmm0,xmm0,mmword ptr [7fadd1696e98h]
+                                                                  ;*dadd {reexecute=0 rethrow=0 return_oop=0}
+                                                                  ; - name.mjw.jquante.math.qm.integral.IntegralsUtil::logGamma@6 (line 184)
+                                                                  ; - name.mjw.jquante.math.qm.integral.IntegralsUtil::gammaIncomplete@1 (line 119)
+                                                                  ;   {section_word}
+
 ```
 
