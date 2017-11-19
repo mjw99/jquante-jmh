@@ -4,7 +4,7 @@ jdk:
 
 
 install:
-- git clone https://travis-ci.org/mjw99/JQuante ; cd JQuante ; mvn clean install
+- git clone https://github.com/mjw99/JQuante.git ; cd JQuante ; mvn clean install
 
 script:
 - mvn -B clean package ; java -jar ./target/benchmarks.jar
