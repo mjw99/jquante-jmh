@@ -1,24 +1,35 @@
-Java Microbenchmark Harness for jquante.
+[Java Microbenchmark Harness](http://openjdk.java.net/projects/code-tools/jmh/) for [JQuante](https://github.com/mjw99/JQuante).
 
 # QuickStart #
 
 ## [Debian Wheezy](http://www.debian.org/releases/wheezy/) / [Ubuntu Precise](http://releases.ubuntu.com/precise/) / [Ubuntu Trusty](http://releases.ubuntu.com/trusty/)
 
-This will compile and run the benchmark:
+1. Install JQuante locally
+```
+git clone https://github.com/mjw99/JQuante.git ; cd JQuante ; mvn clean install 
+```
+2. Compile and run the benchmark:
 
 ```
-git clone https://mjw99@bitbucket.org/mjw99/jquante-jmh.git
-cd jquante-jmh
+git clone https://github.com/mjw99/JQuante-jmh.git
+cd JQuante-jmh
 mvn clean package ; java -jar ./target/benchmarks.jar
 ```
 
 This will produce output similar to the following:
 ```
-Benchmark                             Mode  Cnt   Score   Error  Units
-SinglePointHFWater631gdp.doBenchmark  avgt   10   0.462 � 0.070   s/op
-SinglePointHFWaterSTO3G.doBenchmark   avgt   10   0.030 � 0.002   s/op
-SinglePointHFWaterccpvtz.doBenchmark  avgt   10  17.694 � 0.330   s/op
+# Run complete. Total time: 00:10:13
 
+Benchmark                             Mode  Cnt    Score   Error  Units
+HGPTwoElectronTermBenchmark.sd        avgt   10  123.195 ± 0.630  ns/op
+HGPTwoElectronTermBenchmark.sp        avgt   10   53.317 ± 0.920  ns/op
+HGPTwoElectronTermBenchmark.ss        avgt   10   17.285 ± 0.327  ns/op
+HuzinagaTwoElectronTermBenchmark.sd   avgt   10    7.713 ± 0.137  ns/op
+HuzinagaTwoElectronTermBenchmark.sp   avgt   10    7.870 ± 0.251  ns/op
+HuzinagaTwoElectronTermBenchmark.ss   avgt   10    7.534 ± 0.161  ns/op
+SinglePointHFWater631gdp.doBenchmark  avgt   10    0.826 ± 0.083   s/op
+SinglePointHFWaterSTO3G.doBenchmark   avgt   10    0.055 ± 0.002   s/op
+SinglePointHFWaterccpvtz.doBenchmark  avgt   10   31.324 ± 1.567   s/op
 ```
 
 # Advanced #
@@ -31,7 +42,7 @@ java -jar ./target/benchmarks.jar -prof stack
 ```
 This will produce output similar to the following:
 ```
-Secondary result "name.mjw.jquante.benchmarks.SinglePointHFWaterccpvtz.doBenchmark:�stack":
+Secondary result "name.mjw.jquante.benchmarks.SinglePointHFWaterccpvtz.doBenchmark:·stack":
 Stack profiler:
 
 ....[Thread state distributions]....................................................................
