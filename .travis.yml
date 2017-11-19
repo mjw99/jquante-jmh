@@ -2,5 +2,9 @@ language: java
 jdk:
 - oraclejdk9
 
+
+install:
+- git clone https://travis-ci.org/mjw99/JQuante ; cd JQuante ; mvn clean install
+
 script:
-- git clone https://travis-ci.org/mjw99/JQuante ; cd JQuante ; mvn clean install ; cd .. ; mvn -B clean package ; java -jar ./target/benchmarks.jar
+- mvn -B clean package ; java -jar ./target/benchmarks.jar
