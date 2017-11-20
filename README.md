@@ -6,13 +6,13 @@
 
 1. Install JQuante locally
 ```
-git clone https://github.com/mjw99/JQuante.git ; cd JQuante ; mvn clean install 
+git clone https://github.com/mjw99/jquante.git ; cd jquante ; mvn clean install 
 ```
 2. Compile and run the benchmark:
 
 ```
-git clone https://github.com/mjw99/JQuante-jmh.git
-cd JQuante-jmh
+git clone https://github.com/mjw99/jquante-jmh.git
+cd jquante-jmh
 mvn clean package ; java -jar ./target/benchmarks.jar
 ```
 
