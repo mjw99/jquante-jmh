@@ -41,7 +41,8 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 
-import name.mjw.jquante.math.geom.Point3D;
+
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import name.mjw.jquante.molecule.Atom;
 import name.mjw.jquante.molecule.Molecule;
 import name.mjw.jquante.molecule.impl.MoleculeImpl;
@@ -74,10 +75,10 @@ public class SinglePointHFWaterSTO3G {
     public void setup(){
 
                 // Create molecule
-                Atom O = new Atom("O", 6.0, new Point3D(0.00000000, 0.000000, 0.119748));
-                Atom H1 = new Atom("H", 1.0, new Point3D(0.00000000, 0.761561,
+                Atom O = new Atom("O", 6.0, new Vector3D(0.00000000, 0.000000, 0.119748));
+                Atom H1 = new Atom("H", 1.0, new Vector3D(0.00000000, 0.761561,
                                 -0.478993));
-                Atom H2 = new Atom("H", 1.0, new Point3D(0.00000000, -0.761561,
+                Atom H2 = new Atom("H", 1.0, new Vector3D(0.00000000, -0.761561,
                                 -0.478993));
 
                 water = new MoleculeImpl("water");

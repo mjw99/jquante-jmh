@@ -11,7 +11,8 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 
-import name.mjw.jquante.math.geom.Point3D;
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+
 import name.mjw.jquante.math.qm.basis.ContractedGaussian;
 import name.mjw.jquante.math.qm.basis.Power;
 import name.mjw.jquante.math.qm.integral.HGPTwoElectronTerm;
@@ -40,9 +41,9 @@ public class HGPTwoElectronTermBenchmark {
 	public void setup() {
 
 		hGPTwoElectronTerm = new HGPTwoElectronTerm();
-		s = new ContractedGaussian(new Point3D(0, 0, 0), new Power(0, 0, 0));
-		p = new ContractedGaussian(new Point3D(0, 0, 0), new Power(1, 0, 0));
-		d = new ContractedGaussian(new Point3D(0, 0, 0), new Power(2, 0, 0));
+		s = new ContractedGaussian(new Vector3D(0, 0, 0), new Power(0, 0, 0));
+		p = new ContractedGaussian(new Vector3D(0, 0, 0), new Power(1, 0, 0));
+		d = new ContractedGaussian(new Vector3D(0, 0, 0), new Power(2, 0, 0));
 
 	}
 
