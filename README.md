@@ -71,7 +71,7 @@ This profiles using [kernel based](https://en.wikipedia.org/wiki/Perf_(Linux)) c
 
 1) Install userspace perf tools and kernel modules
 ```
-sudo apt-get install linux-tools-common linux-tools-generic linux-tools-4.4.0-96-generic
+sudo apt-get install linux-tools-common linux-tools-generic
 ```
 
 2) Note "-XX:CompileCommand=print" will not print assembly without the hsdis-amd64.so library. To solve this under Ubuntu 16.04:
@@ -82,7 +82,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH=:/usr/lib/jvm/java-8-openjdk-amd64/jre/l
 
 3) Perform perfasm profile:
 ```
-java -jar ./target/benchmarks.jar -prof perfasm:intelSyntax=true;tooBigThreshold=1500;top=3
+java -jar ./target/benchmarks.jar -prof 'perfasm:intelSyntax=true;tooBigThreshold=1500;top=3'
 ```
 This will generate much more detail, including assembly level code of the hot regions:
 
