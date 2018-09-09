@@ -77,7 +77,7 @@ sudo apt-get install linux-tools-common linux-tools-generic
 2) Note "-XX:CompileCommand=print" will not print assembly without the hsdis-amd64.so library. To solve this under Ubuntu 16.04:
 ```
 sudo apt-get install libhsdis0-fcml
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH=:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64
 ```
 
 3) Perform perfasm profile:
