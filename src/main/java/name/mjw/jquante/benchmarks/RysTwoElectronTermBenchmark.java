@@ -30,7 +30,7 @@ import static org.openjdk.jmh.annotations.Scope.Thread;
 
 public class RysTwoElectronTermBenchmark {
 
-	static final int NUMBER_OF_LOOPS = 10000000;
+	static final int NUMBER_OF_LOOPS = 1_000;
 
 	RysTwoElectronTerm rysTwoElectronTerm;
 	ContractedGaussian s;
@@ -42,8 +42,16 @@ public class RysTwoElectronTermBenchmark {
 
 		rysTwoElectronTerm = new RysTwoElectronTerm();
 		s = new ContractedGaussian(new Vector3D(0, 0, 0), new Power(0, 0, 0));
+		s.addPrimitive(1.0, 1.0);
+		s.normalize();
+
 		p = new ContractedGaussian(new Vector3D(0, 0, 0), new Power(1, 0, 0));
+		p.addPrimitive(1.0, 1.0);
+		p.normalize();
+
 		d = new ContractedGaussian(new Vector3D(0, 0, 0), new Power(2, 0, 0));
+		d.addPrimitive(1.0, 1.0);
+		d.normalize();
 
 	}
 
