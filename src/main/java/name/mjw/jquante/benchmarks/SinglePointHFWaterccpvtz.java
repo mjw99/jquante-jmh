@@ -46,7 +46,7 @@ import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import name.mjw.jquante.molecule.Atom;
 import name.mjw.jquante.molecule.Molecule;
 import name.mjw.jquante.molecule.impl.MoleculeImpl;
-import name.mjw.jquante.math.qm.BasisFunctions;
+import name.mjw.jquante.math.qm.BasisSetLibrary;
 import name.mjw.jquante.math.qm.OneElectronIntegrals;
 import name.mjw.jquante.math.qm.TwoElectronIntegrals;
 import name.mjw.jquante.math.qm.SCFType;
@@ -68,7 +68,7 @@ import static org.openjdk.jmh.annotations.Scope.Thread;
 
 public class SinglePointHFWaterccpvtz {
 
-    BasisFunctions bf = null;
+    BasisSetLibrary bsl = null;
     Molecule water = null;
 
     @Setup
@@ -87,7 +87,7 @@ public class SinglePointHFWaterccpvtz {
                 water.addAtom(H2);
 
                 try {
-                        bf = new BasisFunctions(water, "cc-pvtz");
+                        bsl = new BasisSetLibrary(water, "cc-pvtz");
 
                 } catch (Exception e) {
 
@@ -104,8 +104,8 @@ public class SinglePointHFWaterccpvtz {
     public void doBenchmark() {
 
                 // compute integrals
-                OneElectronIntegrals e1 = new OneElectronIntegrals(bf, water);
-                TwoElectronIntegrals e2 = new TwoElectronIntegrals(bf);
+                OneElectronIntegrals e1 = new OneElectronIntegrals(bsl, water);
+                TwoElectronIntegrals e2 = new TwoElectronIntegrals(bsl);
 
                 // do SCF
                 SCFMethod scfm = SCFMethodFactory.getInstance().getSCFMethod(water, e1,
