@@ -20,16 +20,19 @@ This will produce output similar to the following:
 ```
 # Run complete. Total time: 00:10:13
 
-Benchmark                             Mode  Cnt    Score   Error  Units
-HGPTwoElectronTermBenchmark.sd        avgt   10  123.195 ± 0.630  ns/op
-HGPTwoElectronTermBenchmark.sp        avgt   10   53.317 ± 0.920  ns/op
-HGPTwoElectronTermBenchmark.ss        avgt   10   17.285 ± 0.327  ns/op
-HuzinagaTwoElectronTermBenchmark.sd   avgt   10    7.713 ± 0.137  ns/op
-HuzinagaTwoElectronTermBenchmark.sp   avgt   10    7.870 ± 0.251  ns/op
-HuzinagaTwoElectronTermBenchmark.ss   avgt   10    7.534 ± 0.161  ns/op
-SinglePointHFWater631gdp.doBenchmark  avgt   10    0.826 ± 0.083   s/op
-SinglePointHFWaterSTO3G.doBenchmark   avgt   10    0.055 ± 0.002   s/op
-SinglePointHFWaterccpvtz.doBenchmark  avgt   10   31.324 ± 1.567   s/op
+Benchmark                             Mode  Cnt      Score    Error  Units
+HGPTwoElectronTermBenchmark.sd        avgt   10  11052.156 ± 80.407  ns/op
+HGPTwoElectronTermBenchmark.sp        avgt   10   1106.256 ± 14.595  ns/op
+HGPTwoElectronTermBenchmark.ss        avgt   10    148.472 ±  0.365  ns/op
+HuzinagaTwoElectronTermBenchmark.sd   avgt   10   2235.083 ±  8.704  ns/op
+HuzinagaTwoElectronTermBenchmark.sp   avgt   10   1024.677 ±  3.096  ns/op
+HuzinagaTwoElectronTermBenchmark.ss   avgt   10    393.514 ±  5.337  ns/op
+RysTwoElectronTermBenchmark.sd        avgt   10    848.371 ± 12.474  ns/op
+RysTwoElectronTermBenchmark.sp        avgt   10    565.969 ±  2.814  ns/op
+RysTwoElectronTermBenchmark.ss        avgt   10    361.427 ± 14.465  ns/op
+SinglePointHFWater631gdp.doBenchmark  avgt   10      0.108 ±  0.003   s/op
+SinglePointHFWaterSTO3G.doBenchmark   avgt   10      0.006 ±  0.001   s/op
+SinglePointHFWaterccpvtz.doBenchmark  avgt   10      2.475 ±  0.287   s/op
 ```
 
 # Advanced #
@@ -38,7 +41,7 @@ SinglePointHFWaterccpvtz.doBenchmark  avgt   10   31.324 ± 1.567   s/op
 
 Basic stack based profile:
 ```
-java -jar ./target/benchmarks.jar -prof stack
+java -jar ./target/benchmarks.jar -prof stack SinglePointHFWaterccpvtz
 ```
 This will produce output similar to the following:
 ```
@@ -46,27 +49,30 @@ Secondary result "name.mjw.jquante.benchmarks.SinglePointHFWaterccpvtz.doBenchma
 Stack profiler:
 
 ....[Thread state distributions]....................................................................
- 74.7%         RUNNABLE
- 12.9%         TIMED_WAITING
- 12.3%         WAITING
+ 64.2%         WAITING
+ 31.6%         RUNNABLE
+  4.2%         TIMED_WAITING
+
+....[Thread state: WAITING].........................................................................
+ 51.7%  80.6% java.lang.Object.wait
+ 12.4%  19.4% jdk.internal.misc.Unsafe.park
 
 ....[Thread state: RUNNABLE]........................................................................
- 72.8%  97.4% name.mjw.jquante.math.qm.integral.IntegralsUtil.computeFGamma
-  0.7%   1.0% name.mjw.jquante.math.qm.integral.HuzinagaTwoElectronTerm.coulomb
-  0.4%   0.5% name.mjw.jquante.math.qm.integral.HuzinagaTwoElectronTerm.constructBArray
-  0.2%   0.3% java.util.stream.AbstractPipeline.copyInto
-  0.2%   0.2% name.mjw.jquante.math.qm.GMatrix.compute
-  0.1%   0.1% name.mjw.jquante.math.qm.integral.HuzinagaTwoElectronTerm.coulombRepulsion
-  0.1%   0.1% <stack is empty, everything is filtered?>
-  0.0%   0.1% name.mjw.jquante.math.qm.integral.Integrals.coulomb
-  0.0%   0.0% name.mjw.jquante.math.qm.GMatrix.makeGMatrix
-  0.0%   0.0% name.mjw.jquante.math.qm.integral.HuzinagaTwoElectronTerm.functionB
-  0.2%   0.3% <other>
-
+ 13.5%  42.6% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.initialiseG
+  5.1%  16.0% name.mjw.jquante.math.qm.GMatrix.lambda$makeGMatrix$0
+  4.7%  14.7% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.shift
+  2.5%   8.0% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.processG
+  1.4%   4.4% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.selectRoots
+  0.9%   2.7% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.coulombRepulsion
+  0.8%   2.6% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.finaliseG
+  0.3%   1.1% java.lang.Object.wait
+  0.3%   0.9% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.rNode
+  0.3%   0.9% java.util.stream.ForEachOps$ForEachTask.compute
+  1.9%   6.0% <other>
 ```
 
 
-## Profiling with perfasm (Ubuntu 16.04)
+## Profiling with perfasm (Ubuntu 18.04)
 This profiles using [kernel based](https://en.wikipedia.org/wiki/Perf_(Linux)) counters.
 
 1) Install userspace perf tools and kernel modules
@@ -74,54 +80,74 @@ This profiles using [kernel based](https://en.wikipedia.org/wiki/Perf_(Linux)) c
 sudo apt-get install linux-tools-common linux-tools-generic
 ```
 
-2) Note "-XX:CompileCommand=print" will not print assembly without the hsdis-amd64.so library. To solve this under Ubuntu 16.04:
+2) Note "-XX:CompileCommand=print" will not print assembly without the hsdis-amd64.so library. To solve this under Ubuntu 18.04:
 ```
 sudo apt-get install libhsdis0-fcml
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/jvm/java-9-openjdk-amd64/lib/amd64
 ```
 
 3) Perform perfasm profile:
 ```
-java -jar ./target/benchmarks.jar -prof 'perfasm:intelSyntax=true;tooBigThreshold=1500;top=3'
+sudo sh -c 'echo -1 >/proc/sys/kernel/perf_event_paranoid'
+
+java -jar ./target/benchmarks.jar -prof 'perfasm:intelSyntax=true;tooBigThreshold=1500;top=3' SinglePointHFWaterccpvtz
 ```
-This will generate much more detail, including assembly level code of the hot regions:
+This will generate much more detail, including assembly code of the hot regions:
 
 ```
+# Processing profiler results: LinuxPerfAsmProfiler 
+
+
+Result "name.mjw.jquante.benchmarks.SinglePointHFWaterccpvtz.doBenchmark":
+  2.819 ±(99.9%) 0.808 s/op [Average]
+  (min, avg, max) = (2.390, 2.819, 4.258), stdev = 0.535
+  CI (99.9%): [2.010, 3.627] (assumes normal distribution)
+
+Secondary result "name.mjw.jquante.benchmarks.SinglePointHFWaterccpvtz.doBenchmark:·asm":
+PrintAssembly processed: 1094133 total address lines.
+Perf output processed (skipped 84.804 seconds):
+ Column 1: cycles (1105240 events)
+
 Hottest code regions (>10.00% "cycles" events):
 
 ....[Hottest Region 1]..............................................................................
-perf-8311.map, [unknown] (772 bytes) 
+c2, level 4, name.mjw.jquante.math.qm.GMatrix::lambda$makeGMatrix$0, version 2762 (1699 bytes) 
 
- <no assembly is recorded, native region>
+           0x00007f081ed53440: test    edi,edi
+           0x00007f081ed53442: mov     r8d,edi
+           0x00007f081ed53445: cmovnl  r8d,r11d
+           0x00007f081ed53449: mov     eax,edx
+           0x00007f081ed5344b: inc     eax
+           0x00007f081ed5344d: imul    eax,edx           ;*imul {reexecute=0 rethrow=0 return_oop=0}
+                                                         ; - name.mjw.jquante.math.qm.integral.IntegralsUtil::ijkl2intindex@30 (line 75)
+                                                         ; - name.mjw.jquante.math.qm.GMatrix::lambda$makeGMatrix$0@64 (line 96)
+           0x00007f081ed53450: mov     r11d,eax
+           0x00007f081ed53453: sar     r11d,1fh
+  0.00%    0x00007f081ed53457: shr     r11d,1fh
+           0x00007f081ed5345b: add     r11d,eax
+           0x00007f081ed5345e: sar     r11d,1h
+           0x00007f081ed53461: add     r11d,r8d          ;*iadd {reexecute=0 rethrow=0 return_oop=0}
+                                                         ; - name.mjw.jquante.math.qm.integral.IntegralsUtil::ijkl2intindex@34 (line 75)
+                                                         ; - name.mjw.jquante.math.qm.GMatrix::lambda$makeGMatrix$0@64 (line 96)
+  0.00%    0x00007f081ed53464: mov     dword ptr [rsp+3ch],r11d
+           0x00007f081ed53469: mov     r11d,dword ptr [rsp+28h]
+           0x00007f081ed5346e: inc     r11d
+           0x00007f081ed53471: vmovd   xmm3,r11d
+  0.00%    0x00007f081ed53476: xor     r11d,r11d
+  0.00%    0x00007f081ed53479: xor     r8d,r8d
+
+......
+
 ....................................................................................................
- 35.69%   45.02%  <total for region 1>
+ 14.62%  <total for region 1>
 
-....[Hottest Region 2]..............................................................................
-c2, level 4, name.mjw.jquante.math.qm.integral.IntegralsUtil::gammaIncomplete, version 1099 (1359 bytes) 
-
-                    0x00007fadd1696f14 (offset:  148): 0xf4f4f4f4
-                    0x00007fadd1696f18 (offset:  152): 0xf4f4f4f4   0xf4f4f4f4f4f4f4f4
-                    0x00007fadd1696f1c (offset:  156): 0xf4f4f4f4
-                  RIP: 0x7fadd1696f20 Code size: 0x00000898
-                  [Entry Point]
-                  [Verified Entry Point]
-                    # {method} {0x00007fad71608f00} &apos;gammaIncomplete&apos; &apos;(DD)D&apos; in &apos;name/mjw/jquante/math/qm/integral/IntegralsUtil&apos;
-                    # parm0:    xmm0:xmm0   = double
-                    # parm1:    xmm1:xmm1   = double
-                    #           [sp+0x70]  (sp of caller)
-  0.00%    0.01%    0x00007fadd1696f20: mov     dword ptr [rsp+0fffffffffffec000h],eax
-                                                                  ;   {no_reloc}
-  0.06%    0.02%    0x00007fadd1696f27: push    rbp
-  0.00%    0.01%    0x00007fadd1696f28: sub     rsp,60h           ;*synchronization entry
-                                                                  ; - name.mjw.jquante.math.qm.integral.IntegralsUtil::gammaIncomplete@-1 (line 119)
-  0.05%    0.02%    0x00007fadd1696f2c: vmovsd  qword ptr [rsp],xmm1
-  0.01%    0.01%    0x00007fadd1696f31: vmovsd  qword ptr [rsp+28h],xmm0
-  0.00%    0.01%    0x00007fadd1696f37: mov     r13d,1h
-  0.00%    0.00%    0x00007fadd1696f3d: vaddsd  xmm0,xmm0,mmword ptr [7fadd1696e98h]
-                                                                  ;*dadd {reexecute=0 rethrow=0 return_oop=0}
-                                                                  ; - name.mjw.jquante.math.qm.integral.IntegralsUtil::logGamma@6 (line 184)
-                                                                  ; - name.mjw.jquante.math.qm.integral.IntegralsUtil::gammaIncomplete@1 (line 119)
-                                                                  ;   {section_word}
+....[Hottest Regions]...............................................................................
+ 14.62%         c2, level 4  name.mjw.jquante.math.qm.GMatrix::lambda$makeGMatrix$0, version 2762 (1699 bytes) 
+  7.35%           libjvm.so  JVM_MonitorWait (215 bytes) 
+  5.12%         c2, level 4  name.mjw.jquante.math.qm.integral.RysTwoElectronTerm::coulombRepulsion, version 2435 (1300 bytes) 
+ 72.92%  <...other 3533 warm regions...>
+....................................................................................................
+100.00%  <totals>
 
 ```
 
