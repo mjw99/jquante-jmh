@@ -46,7 +46,7 @@ import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import name.mjw.jquante.molecule.Atom;
 import name.mjw.jquante.molecule.Molecule;
 import name.mjw.jquante.molecule.impl.MoleculeImpl;
-import name.mjw.jquante.math.qm.BasisSetLibrary;
+import name.mjw.jquante.math.qm.basis.BasisSetLibrary;
 import name.mjw.jquante.math.qm.OneElectronIntegrals;
 import name.mjw.jquante.math.qm.TwoElectronIntegrals;
 import name.mjw.jquante.math.qm.SCFType;
