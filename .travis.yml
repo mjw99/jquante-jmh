@@ -4,6 +4,12 @@ jdk:
 - openjdk11
 - openjdk13
 
+sudo: false
+
+cache:
+  directories:
+  - $HOME/.m2
+
 install:
 - git clone https://github.com/mjw99/jquante.git ; cd jquante ; mvn clean install ; cd ..
 
