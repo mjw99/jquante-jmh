@@ -1,7 +1,8 @@
 language: java
 jdk:
-- oraclejdk9
-
+- openjdk8
+- openjdk11
+- openjdk13
 
 install:
 - git clone https://github.com/mjw99/jquante.git ; cd jquante ; mvn clean install ; cd ..
