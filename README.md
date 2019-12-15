@@ -13,6 +13,8 @@ git clone https://github.com/mjw99/jquante.git ; cd jquante ; mvn clean install
 ```
 git clone https://github.com/mjw99/jquante-jmh.git
 cd jquante-jmh
+# Run the CPU at the maximum frequency. 
+sudo cpupower frequency-set -g performance
 mvn clean package ; java -jar ./target/benchmarks.jar
 ```
 
