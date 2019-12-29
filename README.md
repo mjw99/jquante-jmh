@@ -5,12 +5,12 @@
 ## [Debian Wheezy](http://www.debian.org/releases/wheezy/) / [Ubuntu Precise](http://releases.ubuntu.com/precise/) / [Ubuntu Trusty](http://releases.ubuntu.com/trusty/)
 
 1. Install JQuante locally
-```
+```bash
 git clone https://github.com/mjw99/jquante.git ; cd jquante ; mvn clean install 
 ```
 2. Compile and run the benchmark:
 
-```
+```bash
 git clone https://github.com/mjw99/jquante-jmh.git
 cd jquante-jmh
 # Run the CPU at the maximum frequency. 
@@ -19,7 +19,7 @@ mvn clean package ; java -jar ./target/benchmarks.jar
 ```
 
 This will produce output similar to the following:
-```
+```bash
 Benchmark                             Mode  Cnt      Score    Error  Units
 HGPTwoElectronTermBenchmark.sd        avgt   10  17176.001 ± 13.178  ns/op
 HGPTwoElectronTermBenchmark.sp        avgt   10   1704.445 ±  9.657  ns/op
@@ -40,11 +40,11 @@ SinglePointHFWaterccpvtz.doBenchmark  avgt   10      5.864 ±  0.093   s/op
 ## Basic Profiling ##
 
 Basic stack based profile:
-```
+```bash
 java -jar ./target/benchmarks.jar -prof stack SinglePointHFWaterccpvtz
 ```
 This will produce output similar to the following:
-```
+```bash
 Secondary result "name.mjw.jquante.benchmarks.SinglePointHFWaterccpvtz.doBenchmark:·stack":
 Stack profiler:
 
@@ -76,25 +76,25 @@ Stack profiler:
 This profiles using [kernel based](https://en.wikipedia.org/wiki/Perf_(Linux)) counters.
 
 1) Install userspace perf tools and kernel modules
-```
+```bash
 sudo apt-get install linux-tools-common linux-tools-generic
 ```
 
 2) Note "-XX:CompileCommand=print" will not print assembly without the hsdis-amd64.so library. To solve this under Ubuntu 18.04:
-```
+```bash
 sudo apt-get install libhsdis0-fcml
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/jvm/java-9-openjdk-amd64/lib/amd64
 ```
 
 3) Perform perfasm profile:
-```
+```bash
 sudo sh -c 'echo -1 >/proc/sys/kernel/perf_event_paranoid'
 
 java -jar ./target/benchmarks.jar -prof 'perfasm:intelSyntax=true;tooBigThreshold=1500;top=3' SinglePointHFWaterccpvtz
 ```
 This will generate much more detail, including assembly code of the hot regions:
 
-```
+```asm
 # Processing profiler results: LinuxPerfAsmProfiler 
 
 
