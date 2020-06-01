@@ -26,4 +26,4 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
       - name: Build with Maven
-        run: mvn -B clean install
+        run: git clone https://github.com/mjw99/jquante.git ; cd jquante ; mvn clean install ; cd .. ; mvn -B clean install
