@@ -21,18 +21,18 @@ mvn clean package ; java -jar ./target/benchmarks.jar
 This will produce output similar to the following:
 ```bash
 Benchmark                             Mode  Cnt      Score    Error  Units
-HGPTwoElectronTermBenchmark.sd        avgt   10  17176.001 ± 13.178  ns/op
-HGPTwoElectronTermBenchmark.sp        avgt   10   1704.445 ±  9.657  ns/op
-HGPTwoElectronTermBenchmark.ss        avgt   10    218.328 ±  0.025  ns/op
-HuzinagaTwoElectronTermBenchmark.sd   avgt   10   2834.332 ±  1.775  ns/op
-HuzinagaTwoElectronTermBenchmark.sp   avgt   10   1251.287 ±  4.440  ns/op
-HuzinagaTwoElectronTermBenchmark.ss   avgt   10    480.042 ±  0.493  ns/op
-RysTwoElectronTermBenchmark.sd        avgt   10   1197.050 ±  1.118  ns/op
-RysTwoElectronTermBenchmark.sp        avgt   10    669.166 ±  1.553  ns/op
-RysTwoElectronTermBenchmark.ss        avgt   10    416.458 ±  0.298  ns/op
-SinglePointHFWater631gdp.doBenchmark  avgt   10      0.213 ±  0.002   s/op
-SinglePointHFWaterSTO3G.doBenchmark   avgt   10      0.011 ±  0.001   s/op
-SinglePointHFWaterccpvtz.doBenchmark  avgt   10      5.864 ±  0.093   s/op
+HGPTwoElectronTermBenchmark.sd        avgt   10  11175.373 ±  6.784  ns/op
+HGPTwoElectronTermBenchmark.sp        avgt   10   1123.004 ±  0.928  ns/op
+HGPTwoElectronTermBenchmark.ss        avgt   10    150.547 ±  0.184  ns/op
+HuzinagaTwoElectronTermBenchmark.sd   avgt   10   2269.714 ±  3.789  ns/op
+HuzinagaTwoElectronTermBenchmark.sp   avgt   10   1031.282 ±  2.505  ns/op
+HuzinagaTwoElectronTermBenchmark.ss   avgt   10    418.331 ±  9.098  ns/op
+RysTwoElectronTermBenchmark.sd        avgt   10   1175.639 ±  2.868  ns/op
+RysTwoElectronTermBenchmark.sp        avgt   10    764.290 ±  1.548  ns/op
+RysTwoElectronTermBenchmark.ss        avgt   10    397.772 ±  1.559  ns/op
+SinglePointHFWater631gdp.doBenchmark  avgt   10      0.125 ±  0.001   s/op
+SinglePointHFWaterSTO3G.doBenchmark   avgt   10      0.008 ±  0.001   s/op
+SinglePointHFWaterccpvtz.doBenchmark  avgt   10      2.956 ±  0.482   s/op
 ```
 
 # Advanced #
