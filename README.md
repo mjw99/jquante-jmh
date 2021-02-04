@@ -21,18 +21,18 @@ mvn clean package ; java -jar ./target/benchmarks.jar
 This will produce output similar to the following:
 ```bash
 Benchmark                             Mode  Cnt      Score    Error  Units
-HGPTwoElectronTermBenchmark.sd        avgt   10  11175.373 ±  6.784  ns/op
-HGPTwoElectronTermBenchmark.sp        avgt   10   1123.004 ±  0.928  ns/op
-HGPTwoElectronTermBenchmark.ss        avgt   10    150.547 ±  0.184  ns/op
-HuzinagaTwoElectronTermBenchmark.sd   avgt   10   2269.714 ±  3.789  ns/op
-HuzinagaTwoElectronTermBenchmark.sp   avgt   10   1031.282 ±  2.505  ns/op
-HuzinagaTwoElectronTermBenchmark.ss   avgt   10    418.331 ±  9.098  ns/op
-RysTwoElectronTermBenchmark.sd        avgt   10   1175.639 ±  2.868  ns/op
-RysTwoElectronTermBenchmark.sp        avgt   10    764.290 ±  1.548  ns/op
-RysTwoElectronTermBenchmark.ss        avgt   10    397.772 ±  1.559  ns/op
-SinglePointHFWater631gdp.doBenchmark  avgt   10      0.125 ±  0.001   s/op
-SinglePointHFWaterSTO3G.doBenchmark   avgt   10      0.008 ±  0.001   s/op
-SinglePointHFWaterccpvtz.doBenchmark  avgt   10      2.956 ±  0.482   s/op
+HGPTwoElectronTermBenchmark.sd        avgt   10  13225.011 ±  1.317  ns/op
+HGPTwoElectronTermBenchmark.sp        avgt   10   1327.111 ±  0.622  ns/op
+HGPTwoElectronTermBenchmark.ss        avgt   10    183.107 ±  1.605  ns/op
+HuzinagaTwoElectronTermBenchmark.sd   avgt   10   2630.198 ±  3.026  ns/op
+HuzinagaTwoElectronTermBenchmark.sp   avgt   10   1114.593 ±  4.186  ns/op
+HuzinagaTwoElectronTermBenchmark.ss   avgt   10    512.553 ±  0.096  ns/op
+RysTwoElectronTermBenchmark.sd        avgt   10    643.282 ±  0.783  ns/op
+RysTwoElectronTermBenchmark.sp        avgt   10    377.770 ±  0.457  ns/op
+RysTwoElectronTermBenchmark.ss        avgt   10    214.362 ±  0.203  ns/op
+SinglePointHFWater631gdp.doBenchmark  avgt   10      0.046 ±  0.001   s/op
+SinglePointHFWaterSTO3G.doBenchmark   avgt   10      0.003 ±  0.001   s/op
+SinglePointHFWaterccpvtz.doBenchmark  avgt   10      1.220 ±  0.300   s/op
 ```
 
 # Advanced #
@@ -49,26 +49,30 @@ Secondary result "name.mjw.jquante.benchmarks.SinglePointHFWaterccpvtz.doBenchma
 Stack profiler:
 
 ....[Thread state distributions]....................................................................
- 68.8%         WAITING
- 24.8%         RUNNABLE
-  6.5%         TIMED_WAITING
+ 48.4%         WAITING
+ 48.2%         RUNNABLE
+  3.5%         TIMED_WAITING
 
 ....[Thread state: WAITING].........................................................................
- 63.9%  92.9% jdk.internal.misc.Unsafe.park
-  4.9%   7.1% java.lang.Object.wait
+ 24.8%  51.3% java.lang.Object.wait
+ 23.5%  48.7% jdk.internal.misc.Unsafe.park
 
 ....[Thread state: RUNNABLE]........................................................................
- 11.4%  46.1% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.initialiseG
-  5.7%  22.9% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.recur
-  1.9%   7.6% name.mjw.jquante.math.qm.GMatrix.lambda$null$0
-  1.6%   6.3% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.shift
-  1.2%   5.0% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.selectRoots
-  0.4%   1.6% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.processG
-  0.4%   1.5% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.finaliseG
-  0.3%   1.3% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.rNode
-  0.3%   1.0% java.lang.Object.wait
-  0.2%   0.8% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.int1d
-  1.4%   5.7% <other>
+ 15.8%  32.7% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.int1d
+ 10.2%  21.3% name.mjw.jquante.math.qm.GMatrix.lambda$makeGMatrix$0
+  3.9%   8.2% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.selectRoots
+  3.7%   7.7% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.processGn
+  3.0%   6.2% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.processGm
+  2.9%   6.1% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.finaliseG
+  1.7%   3.6% java.lang.Object.wait
+  0.9%   1.9% name.mjw.jquante.math.qm.integral.RysTwoElectronTerm.rNode
+  0.8%   1.7% org.hipparchus.linear.ArrayRealVector.<init>
+  0.7%   1.5% java.util.stream.ForEachOps$ForEachTask.compute
+  4.4%   9.2% <other>
+
+....[Thread state: TIMED_WAITING]...................................................................
+  2.9%  84.1% java.lang.Object.wait
+  0.5%  15.9% jdk.internal.misc.Unsafe.park
 ```
 
 
@@ -99,60 +103,75 @@ This will generate much more detail, including assembly code of the hot regions:
 
 
 Result "name.mjw.jquante.benchmarks.SinglePointHFWaterccpvtz.doBenchmark":
-  5.273 ±(99.9%) 0.112 s/op [Average]
-  (min, avg, max) = (5.154, 5.273, 5.405), stdev = 0.074
-  CI (99.9%): [5.160, 5.385] (assumes normal distribution)
+  1.167 ±(99.9%) 0.080 s/op [Average]
+  (min, avg, max) = (1.112, 1.167, 1.256), stdev = 0.053
+  CI (99.9%): [1.087, 1.246] (assumes normal distribution)
 
 Secondary result "name.mjw.jquante.benchmarks.SinglePointHFWaterccpvtz.doBenchmark:·asm":
-PrintAssembly processed: 879179 total address lines.
-Perf output processed (skipped 68.650 seconds):
- Column 1: cycles (380574 events)
+PrintAssembly processed: 1066136 total address lines.
+Perf output processed (skipped 74.811 seconds):
+ Column 1: cycles (1335203 events)
 
 Hottest code regions (>10.00% "cycles" events):
 
 ....[Hottest Region 1]..............................................................................
-c2, level 4, name.mjw.jquante.math.qm.integral.RysTwoElectronTerm::recur, version 1907 (3373 bytes)
+c2, level 4, name.mjw.jquante.math.qm.integral.RysTwoElectronTerm::recur, version 2359 (2468 bytes) 
 
-           # parm3:    rcx       = int
-           # parm4:    r8        = int
-           # parm5:    xmm1:xmm1   = double
-           # parm6:    xmm2:xmm2   = double
-           # parm7:    xmm3:xmm3   = double
-           # parm8:    xmm4:xmm4   = double
-           # parm9:    xmm5:xmm5   = double
-           # parm10:   xmm6:xmm6   = double
-           # parm11:   xmm7:xmm7   = double
-           # parm12:   [sp+0xd0]   = double  (sp of caller)
-  0.08%    0x00007f43ab7ca4a0: mov     dword ptr [rsp+0fffffffffffec000h],eax
-                                                         ;   {no_reloc}
-  0.04%    0x00007f43ab7ca4a7: push    rbp
-  0.03%    0x00007f43ab7ca4a8: sub     rsp,0c0h          ;*synchronization entry
-                                                         ; - name.mjw.jquante.math.qm.integral.RysTwoElectronTerm::recur@-1 (line 1687)
-  0.08%    0x00007f43ab7ca4af: vmovsd  qword ptr [rsp+40h],xmm4
-  0.01%    0x00007f43ab7ca4b5: vmovsd  qword ptr [rsp+38h],xmm3
-  0.02%    0x00007f43ab7ca4bb: vmovsd  qword ptr [rsp+30h],xmm2
-  0.05%    0x00007f43ab7ca4c1: vmovsd  qword ptr [rsp+28h],xmm1
-  0.04%    0x00007f43ab7ca4c7: vmovsd  qword ptr [rsp+58h],xmm7
-  0.01%    0x00007f43ab7ca4cd: vmovsd  qword ptr [rsp+50h],xmm6
-  0.03%    0x00007f43ab7ca4d3: vmovsd  qword ptr [rsp+48h],xmm5
-  0.05%    0x00007f43ab7ca4d9: add     esi,edx           ;*iadd {reexecute=0 rethrow=0 return_oop=0}
-                                                         ; - name.mjw.jquante.math.qm.integral.RysTwoElectronTerm::recur@175 (line 1703)
-  0.03%    0x00007f43ab7ca4db: add     ecx,r8d           ;*iadd {reexecute=0 rethrow=0 return_oop=0}
-                                                         ; - name.mjw.jquante.math.qm.integral.RysTwoElectronTerm::recur@182 (line 1704)
-  0.01%    0x00007f43ab7ca4de: vmulsd  xmm1,xmm4,mmword ptr [rsp+0d0h]
-
-......
+                                        # parm1:    rsi       = int
+                                        # parm2:    rdx       = int
+                                        # parm3:    xmm1:xmm1   = double
+                                        # parm4:    xmm2:xmm2   = double
+                                        # parm5:    xmm3:xmm3   = double
+                                        # parm6:    xmm4:xmm4   = double
+                                        # parm7:    xmm5:xmm5   = double
+                                        # parm8:    xmm6:xmm6   = double
+                                        # parm9:    xmm7:xmm7   = double
+                                        # parm10:   [sp+0xe0]   = double  (sp of caller)
+  0.11%                                 0x00007f4b685a1d60: mov     dword ptr [rsp+0fffffffffffec000h],eax
+                                                                                      ;   {no_reloc}
+  0.14%                                 0x00007f4b685a1d67: push    rbp
+  0.04%                                 0x00007f4b685a1d68: sub     rsp,0d0h          ;*synchronization entry
+                                                                                      ; - name.mjw.jquante.math.qm.integral.RysTwoElectronTerm::recur@-1 (line 1703)
+  0.07%                                 0x00007f4b685a1d6f: vmovsd  qword ptr [rsp+80h],xmm6
+  0.14%                                 0x00007f4b685a1d78: vmovsd  qword ptr [rsp+78h],xmm4
+  0.08%                                 0x00007f4b685a1d7e: vmovsd  qword ptr [rsp+70h],xmm3
+  0.06%                                 0x00007f4b685a1d84: vmovsd  qword ptr [rsp+68h],xmm2
+  0.12%                                 0x00007f4b685a1d8a: vmovsd  qword ptr [rsp+60h],xmm1
+  0.06%                                 0x00007f4b685a1d90: mov     dword ptr [rsp+58h],edx
+  0.07%                                 0x00007f4b685a1d94: mov     dword ptr [rsp+28h],esi
+  0.06%                                 0x00007f4b685a1d98: vmovsd  qword ptr [rsp],xmm0
+  0.14%                                 0x00007f4b685a1d9d: vaddsd  xmm0,xmm5,xmm6    ;*dadd {reexecute=0 rethrow=0 return_oop=0}
+                                                                                      ; - name.mjw.jquante.math.qm.integral.RysTwoElectronTerm::recur@4 (line 1703)
+  0.03%                                 0x00007f4b685a1da1: vaddsd  xmm1,xmm7,mmword ptr [rsp+0e0h]
+  0.69%                                 0x00007f4b685a1daa: mov     r10,qword ptr [r15+318h]
+                                                                                      ;*invokestatic currentThread {reexecute=0 rethrow=0 return_oop=0}
+                                                                                      ; - java.lang.ThreadLocal::get@0 (line 162)
+                                                                                      ; - name.mjw.jquante.math.qm.integral.RysTwoElectronTerm::initialiseG@3 (line 1737)
+                                                                                      ; - name.mjw.jquante.math.qm.integral.RysTwoElectronTerm::recur@34 (line 1706)
+  0.00%                                 0x00007f4b685a1db1: mov     r10d,dword ptr [r10+4ch]
+                                                                                      ;*getfield threadLocals {reexecute=0 rethrow=0 return_oop=0}
+                                                                                      ; - java.lang.ThreadLocal::getMap@1 (line 254)
+                                                                                      ; - java.lang.ThreadLocal::get@6 (line 163)
+                                                                                      ; - name.mjw.jquante.math.qm.integral.RysTwoElectronTerm::initialiseG@3 (line 1737)
+                                                                                      ; - name.mjw.jquante.math.qm.integral.RysTwoElectronTerm::recur@34 (line 1706)
+<----SNIP---->
+         ↘↘                             0x00007f4b685a270a: vmovsd  qword ptr [rsp+18h],xmm1
+                                        0x00007f4b685a2710: vmovsd  qword ptr [rsp+10h],xmm0
+                                        0x00007f4b685a2716: vmovsd  qword ptr [rsp+8h],xmm7
+                                        0x00007f4b685a271c: vmovq   rbp,xmm5
+                                        0x00007f4b685a2721: mov     rsi,6260a85c8h    ;   {oop(a &apos;java/lang/ThreadLocal$SuppliedThreadLocal&apos;{0x00000006260a85c8})}
+                                        0x00007f4b685a272b: call    7f4b608bdd00h     ; ImmutableOopMap{}
+                                                                                      ;*invokevirtual setInitialValue {reexecute=0 rethrow=0 return_oop=1}
 ....................................................................................................
- 35.33%  <total for region 1>
+ 32.36%  <total for region 1>
 
-....[Hottest Regions]...............................................................................
- 35.33%         c2, level 4  name.mjw.jquante.math.qm.integral.RysTwoElectronTerm::recur, version 1907 (3373 bytes)
-  9.02%         c2, level 4  name.mjw.jquante.math.qm.GMatrix::lambda$null$0, version 2284 (1639 bytes)
-  6.45%         c2, level 4  name.mjw.jquante.math.qm.integral.RysTwoElectronTerm::shift, version 1934 (2757 bytes)
- 49.20%  <...other 2325 warm regions...>
+<----SNIP---->
+
+....[Hottest Methods (after inlining)]..............................................................
+ 32.69%         c2, level 4  name.mjw.jquante.math.qm.integral.RysTwoElectronTerm::recur, version 2359 
+ 26.18%         c2, level 4  name.mjw.jquante.math.qm.GMatrix::lambda$makeGMatrix$0, version 2721 
+ 19.26%         c2, level 4  name.mjw.jquante.math.qm.integral.RysTwoElectronTerm::shift, version 2314 
+ 21.87%  <...other 309 warm methods...>
 ....................................................................................................
 100.00%  <totals>
-
-
 ```
-
