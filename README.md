@@ -87,7 +87,7 @@ sudo apt-get install linux-tools-common linux-tools-generic
 ```bash
 sudo apt-get install libhsdis0-fcml
 ```
-Or, one can obtain a more recent version from [here](https://builds.shipilev.net/hsdis/)
+Or, one can obtain a more recent version from [here](https://builds.shipilev.net/hsdis/) or [here](https://chriswhocodes.com/hsdis/).
 
 3) Perform perfasm profile:
 ```bash
