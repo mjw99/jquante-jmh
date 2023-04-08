@@ -75,7 +75,7 @@ Stack profiler:
 ```
 
 
-## Profiling with perfasm (Ubuntu 20.04)
+## Profiling with perfasm (Ubuntu 22.04)
 This profiles using [kernel based](https://en.wikipedia.org/wiki/Perf_(Linux)) counters.
 
 1) Install userspace perf tools and kernel modules
@@ -87,6 +87,7 @@ sudo apt-get install linux-tools-common linux-tools-generic
 ```bash
 sudo apt-get install libhsdis0-fcml
 ```
+Or, one can obtain a more recent version from [here](https://builds.shipilev.net/hsdis/)
 
 3) Perform perfasm profile:
 ```bash
