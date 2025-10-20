@@ -57,6 +57,12 @@ THE POSSIBILITY OF SUCH DAMAGE.
             <artifactId>jmh-core</artifactId>
             <version>${jmh.version}</version>
         </dependency>
+
+	<dependency>
+	    <groupId>org.openjdk.jmh</groupId>
+	    <artifactId>jmh-generator-annprocess</artifactId>
+	    <version>${jmh.version}</version>
+	</dependency>
     </dependencies>
 
     <properties>
