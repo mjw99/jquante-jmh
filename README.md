@@ -20,19 +20,19 @@ mvn clean package ; java -jar ./target/benchmarks.jar
 
 This will produce output similar to the following:
 ```bash
-Benchmark                             Mode  Cnt      Score    Error  Units
-HGPTwoElectronTermBenchmark.sd        avgt   10  13245.889 ± 23.475  ns/op
-HGPTwoElectronTermBenchmark.sp        avgt   10   1315.202 ±  3.614  ns/op
-HGPTwoElectronTermBenchmark.ss        avgt   10    182.214 ±  0.255  ns/op
-HuzinagaTwoElectronTermBenchmark.sd   avgt   10   2708.537 ±  9.896  ns/op
-HuzinagaTwoElectronTermBenchmark.sp   avgt   10   1131.101 ±  6.763  ns/op
-HuzinagaTwoElectronTermBenchmark.ss   avgt   10    506.775 ±  0.991  ns/op
-RysTwoElectronTermBenchmark.sd        avgt   10    629.575 ±  3.787  ns/op
-RysTwoElectronTermBenchmark.sp        avgt   10    337.277 ±  1.054  ns/op
-RysTwoElectronTermBenchmark.ss        avgt   10    185.916 ±  0.661  ns/op
-SinglePointHFWater631gdp.doBenchmark  avgt   10      0.041 ±  0.001   s/op
-SinglePointHFWaterSTO3G.doBenchmark   avgt   10      0.003 ±  0.001   s/op
-SinglePointHFWaterccpvtz.doBenchmark  avgt   10      1.132 ±  0.044   s/op
+Benchmark                        (basisSet)  Mode  Cnt      Score    Error  Units
+HGPTwoElectronTermBenchmark.sd          N/A  avgt   10  13245.889 ± 23.475  ns/op
+HGPTwoElectronTermBenchmark.sp          N/A  avgt   10   1315.202 ±  3.614  ns/op
+HGPTwoElectronTermBenchmark.ss          N/A  avgt   10    182.214 ±  0.255  ns/op
+HuzinagaTwoElectronTermBenchmark.sd     N/A  avgt   10   2708.537 ±  9.896  ns/op
+HuzinagaTwoElectronTermBenchmark.sp     N/A  avgt   10   1131.101 ±  6.763  ns/op
+HuzinagaTwoElectronTermBenchmark.ss     N/A  avgt   10    506.775 ±  0.991  ns/op
+RysTwoElectronTermBenchmark.sd          N/A  avgt   10    629.575 ±  3.787  ns/op
+RysTwoElectronTermBenchmark.sp          N/A  avgt   10    337.277 ±  1.054  ns/op
+RysTwoElectronTermBenchmark.ss          N/A  avgt   10    185.916 ±  0.661  ns/op
+SinglePointHFWater.doBenchmark       sto-3g  avgt   10      0.003 ±  0.001   s/op
+SinglePointHFWater.doBenchmark      6-31gss  avgt   10      0.041 ±  0.001   s/op
+SinglePointHFWater.doBenchmark      cc-pvtz  avgt   10      1.132 ±  0.044   s/op
 ```
 
 # Advanced #
@@ -41,11 +41,11 @@ SinglePointHFWaterccpvtz.doBenchmark  avgt   10      1.132 ±  0.044   s/op
 
 Basic stack based profile:
 ```bash
-java -jar ./target/benchmarks.jar -prof stack SinglePointHFWaterccpvtz
+java -jar ./target/benchmarks.jar -prof stack SinglePointHFWater -p basisSet=cc-pvtz
 ```
 This will produce output similar to the following:
 ```bash
-Secondary result "name.mjw.jquante.benchmarks.SinglePointHFWaterccpvtz.doBenchmark:·stack":
+Secondary result "name.mjw.jquante.benchmarks.SinglePointHFWater.doBenchmark:·stack":
 Stack profiler:
 
 ....[Thread state distributions]....................................................................
@@ -93,7 +93,7 @@ Or, one can obtain a more recent version from [here](https://builds.shipilev.net
 ```bash
 sudo sh -c 'echo -1 >/proc/sys/kernel/perf_event_paranoid'
 
-java -jar ./target/benchmarks.jar -prof 'perfasm:intelSyntax=true;tooBigThreshold=1500;top=3' SinglePointHFWaterccpvtz
+java -jar ./target/benchmarks.jar -prof 'perfasm:intelSyntax=true;tooBigThreshold=1500;top=3' SinglePointHFWater -p basisSet=cc-pvtz
 ```
 This will generate much more detail, including assembly code of the hot regions:
 
@@ -101,12 +101,12 @@ This will generate much more detail, including assembly code of the hot regions:
 # Processing profiler results: LinuxPerfAsmProfiler 
 
 
-Result "name.mjw.jquante.benchmarks.SinglePointHFWaterccpvtz.doBenchmark":
+Result "name.mjw.jquante.benchmarks.SinglePointHFWater.doBenchmark":
   1.136 ±(99.9%) 0.033 s/op [Average]
   (min, avg, max) = (1.093, 1.136, 1.167), stdev = 0.022
   CI (99.9%): [1.103, 1.168] (assumes normal distribution)
 
-Secondary result "name.mjw.jquante.benchmarks.SinglePointHFWaterccpvtz.doBenchmark:·asm":
+Secondary result "name.mjw.jquante.benchmarks.SinglePointHFWater.doBenchmark:·asm":
 PrintAssembly processed: 1103591 total address lines.
 Perf output processed (skipped 63.433 seconds):
  Column 1: cycles (1333215 events)
