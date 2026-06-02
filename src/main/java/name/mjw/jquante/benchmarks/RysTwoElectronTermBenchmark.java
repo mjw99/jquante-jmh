@@ -23,7 +23,7 @@ import static org.openjdk.jmh.annotations.Scope.Thread;
 @State(Thread)
 @OutputTimeUnit(NANOSECONDS)
 @BenchmarkMode(AverageTime)
-@Fork(value = 1)
+@Fork(value = 3)
 @Warmup(iterations = 5)
 @Measurement(iterations = 10)
 

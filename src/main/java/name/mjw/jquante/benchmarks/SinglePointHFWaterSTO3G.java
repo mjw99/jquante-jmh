@@ -62,7 +62,7 @@ import static org.openjdk.jmh.annotations.Scope.Thread;
 @State(Thread)
 @OutputTimeUnit(SECONDS)
 @BenchmarkMode(AverageTime)
-@Fork(value = 1)
+@Fork(value = 3)
 @Warmup(iterations = 5)
 @Measurement(iterations = 10)
 
@@ -72,7 +72,7 @@ public class SinglePointHFWaterSTO3G {
     Molecule water = null;
 
     @Setup
-    public void setup(){
+    public void setup() throws Exception {
 
                 // Create molecule
                 Atom O = new Atom("O", new Vector3D(0.00000000, 0.000000, 0.119748));
@@ -86,13 +86,7 @@ public class SinglePointHFWaterSTO3G {
                 water.addAtom(O);
                 water.addAtom(H2);
 
-                try {
-                        bsl = new BasisSetLibrary(water, "sto-3g");
-
-                } catch (Exception e) {
-
-                        e.printStackTrace();
-                }
+                bsl = new BasisSetLibrary(water, "sto-3g");
 
 
 
