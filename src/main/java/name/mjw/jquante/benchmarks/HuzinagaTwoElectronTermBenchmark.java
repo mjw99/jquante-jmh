@@ -5,7 +5,6 @@ import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.CompilerControl;
 import org.openjdk.jmh.annotations.Fork;
 import org.openjdk.jmh.annotations.Measurement;
-import org.openjdk.jmh.annotations.OperationsPerInvocation;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
@@ -29,8 +28,6 @@ import static org.openjdk.jmh.annotations.Scope.Thread;
 @Measurement(iterations = 10)
 
 public class HuzinagaTwoElectronTermBenchmark {
-
-	static final int NUMBER_OF_LOOPS = 1_000;
 
 	HuzinagaTwoElectronTerm huzinagaTwoElectronTerm;
 	ContractedGaussian s;
@@ -56,36 +53,21 @@ public class HuzinagaTwoElectronTermBenchmark {
 	}
 
 	@Benchmark
-	@OperationsPerInvocation(NUMBER_OF_LOOPS)
 	@CompilerControl(CompilerControl.Mode.DONT_INLINE)
-	public void ss() {
-		for (int i = 0; i < NUMBER_OF_LOOPS; i++) {
-			huzinagaTwoElectronTerm.coulomb(s, s, s, s);
-
-		}
-
+	public double ss() {
+		return huzinagaTwoElectronTerm.coulomb(s, s, s, s);
 	}
 
 	@Benchmark
-	@OperationsPerInvocation(NUMBER_OF_LOOPS)
 	@CompilerControl(CompilerControl.Mode.DONT_INLINE)
-	public void sp() {
-		for (int i = 0; i < NUMBER_OF_LOOPS; i++) {
-			huzinagaTwoElectronTerm.coulomb(s, s, p, p);
-
-		}
-
+	public double sp() {
+		return huzinagaTwoElectronTerm.coulomb(s, s, p, p);
 	}
 
 	@Benchmark
-	@OperationsPerInvocation(NUMBER_OF_LOOPS)
 	@CompilerControl(CompilerControl.Mode.DONT_INLINE)
-	public void sd() {
-		for (int i = 0; i < NUMBER_OF_LOOPS; i++) {
-			huzinagaTwoElectronTerm.coulomb(s, s, d, d);
-
-		}
-
+	public double sd() {
+		return huzinagaTwoElectronTerm.coulomb(s, s, d, d);
 	}
 
 }
