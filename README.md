@@ -1,4 +1,4 @@
-# [Java Microbenchmark Harness](http://openjdk.java.net/projects/code-tools/jmh/) for [JQuante](https://github.com/mjw99/JQuante) ![Travis_status](https://travis-ci.org/mjw99/jquante-jmh.svg?branch=master)
+# [Java Microbenchmark Harness](http://openjdk.java.net/projects/code-tools/jmh/) for [JQuante](https://github.com/mjw99/JQuante) [![Java CI with Maven](https://github.com/mjw99/jquante-jmh/actions/workflows/maven.yml/badge.svg)](https://github.com/mjw99/jquante-jmh/actions/workflows/maven.yml)
 
 # QuickStart
 
