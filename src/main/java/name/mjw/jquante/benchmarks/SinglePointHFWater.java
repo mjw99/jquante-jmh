@@ -42,10 +42,7 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 
-import org.hipparchus.geometry.euclidean.threed.Vector3D;
-import name.mjw.jquante.molecule.Atom;
 import name.mjw.jquante.molecule.Molecule;
-import name.mjw.jquante.molecule.impl.MoleculeImpl;
 import name.mjw.jquante.math.qm.basis.BasisSetLibrary;
 import name.mjw.jquante.math.qm.OneElectronIntegrals;
 import name.mjw.jquante.math.qm.TwoElectronIntegrals;
@@ -78,15 +75,7 @@ public class SinglePointHFWater {
     @Setup
     public void setup() throws Exception {
 
-        // Create molecule
-        Atom O = new Atom("O", new Vector3D(0.00000000, 0.000000, 0.119748));
-        Atom H1 = new Atom("H", new Vector3D(0.00000000, 0.761561, -0.478993));
-        Atom H2 = new Atom("H", new Vector3D(0.00000000, -0.761561, -0.478993));
-
-        water = new MoleculeImpl("water");
-        water.addAtom(H1);
-        water.addAtom(O);
-        water.addAtom(H2);
+        water = Geometry.water();
 
         bsl = new BasisSetLibrary(water, basisSet);
     }

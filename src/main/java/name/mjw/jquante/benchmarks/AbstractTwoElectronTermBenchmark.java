@@ -12,14 +12,11 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 
-import org.hipparchus.geometry.euclidean.threed.Vector3D;
-
 import name.mjw.jquante.math.qm.basis.BasisSetLibrary;
 import name.mjw.jquante.math.qm.basis.ContractedGaussian;
 import name.mjw.jquante.math.qm.integral.TwoElectronTerm;
 import name.mjw.jquante.molecule.Atom;
 import name.mjw.jquante.molecule.Molecule;
-import name.mjw.jquante.molecule.impl.MoleculeImpl;
 
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
 import static org.openjdk.jmh.annotations.Mode.AverageTime;
@@ -70,14 +67,7 @@ public abstract class AbstractTwoElectronTermBenchmark {
 
 		twoElectronTerm = newTwoElectronTerm();
 
-		Atom o = new Atom("O", new Vector3D(0.00000000, 0.000000, 0.119748));
-		Atom h1 = new Atom("H", new Vector3D(0.00000000, 0.761561, -0.478993));
-		Atom h2 = new Atom("H", new Vector3D(0.00000000, -0.761561, -0.478993));
-
-		Molecule water = new MoleculeImpl("water");
-		water.addAtom(h1);
-		water.addAtom(o);
-		water.addAtom(h2);
+		Molecule water = Geometry.water();
 
 		List<ContractedGaussian> bfs = new BasisSetLibrary(water, "6-31gss").getBasisFunctions();
 
