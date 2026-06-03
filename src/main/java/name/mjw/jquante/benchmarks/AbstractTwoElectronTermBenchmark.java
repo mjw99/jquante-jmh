@@ -26,7 +26,10 @@ import static org.openjdk.jmh.annotations.Scope.Thread;
  * Shared driver for the {@link TwoElectronTerm} coulomb() benchmarks. Concrete
  * subclasses only supply the implementation under test via
  * {@link #newTwoElectronTerm()}; JMH discovers the {@code ss}/{@code sp}/
- * {@code sd} benchmarks on each concrete subclass.
+ * {@code sd} benchmarks on each concrete subclass. Those names give the shell
+ * pattern of the {@code (ab|cd)} quartet each one evaluates: the bra is always
+ * an {@code (s s)} pair, so {@code ss}, {@code sp} and {@code sd} are the
+ * {@code (ss|ss)}, {@code (ss|pp)} and {@code (ss|dd)} integrals respectively.
  *
  * <p>The quartets are built from <em>real</em> contracted Gaussians taken from a
  * water 6-31G** basis rather than single-primitive functions all sharing the
@@ -99,18 +102,21 @@ public abstract class AbstractTwoElectronTermBenchmark {
 				"No " + symbol + " function with total angular momentum " + angularMomentum + " in basis");
 	}
 
+	/** Coulomb {@code (sO sH | sO sO)} — an {@code (ss|ss)} quartet. */
 	@Benchmark
 	@CompilerControl(CompilerControl.Mode.DONT_INLINE)
 	public double ss() {
 		return twoElectronTerm.coulomb(sO, sH, sO, sO);
 	}
 
+	/** Coulomb {@code (sO sH | pO pO)} — an {@code (ss|pp)} quartet. */
 	@Benchmark
 	@CompilerControl(CompilerControl.Mode.DONT_INLINE)
 	public double sp() {
 		return twoElectronTerm.coulomb(sO, sH, pO, pO);
 	}
 
+	/** Coulomb {@code (sO sH | dO dO)} — an {@code (ss|dd)} quartet. */
 	@Benchmark
 	@CompilerControl(CompilerControl.Mode.DONT_INLINE)
 	public double sd() {
