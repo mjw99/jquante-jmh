@@ -82,7 +82,7 @@ public class SinglePointHFWater {
 
     @Benchmark
     @CompilerControl(CompilerControl.Mode.DONT_INLINE) // makes looking at assembly easier
-    public void doBenchmark() {
+    public double doBenchmark() {
 
         // compute integrals
         OneElectronIntegrals e1 = new OneElectronIntegrals(bsl, water);
@@ -93,6 +93,9 @@ public class SinglePointHFWater {
                 e2, SCFType.HARTREE_FOCK);
         scfm.scf();
 
+        // return the converged energy so JMH sinks it; guards against
+        // dead-code elimination of the whole SCF
+        return scfm.getEnergy();
     }
 
 }
