@@ -57,11 +57,19 @@ import static org.openjdk.jmh.annotations.Scope.Thread;
 /**
  * Full single-point Hartree-Fock energy of water, parameterised over the basis
  * set. JMH runs {@link #doBenchmark()} once per {@code basisSet} value.
+ *
+ * <p>Both the two-electron integral evaluation and the Fock-matrix build run on
+ * parallel streams over the common {@link java.util.concurrent.ForkJoinPool}, so
+ * the timing would otherwise scale with the host core count. The fork pins that
+ * pool to a single worker
+ * ({@code -Djava.util.concurrent.ForkJoinPool.common.parallelism=1}) to give a
+ * deterministic, machine-independent single-thread figure consistent with the
+ * {@code @Threads(1)} configuration.
  */
 @State(Thread)
 @OutputTimeUnit(SECONDS)
 @BenchmarkMode(AverageTime)
-@Fork(value = 1)
+@Fork(value = 1, jvmArgsAppend = "-Djava.util.concurrent.ForkJoinPool.common.parallelism=1")
 @Warmup(iterations = 5)
 @Measurement(iterations = 10)
 public class SinglePointHFWater {
